@@ -1,0 +1,14 @@
+buff
+
+*.exe
+*.dll
+*.lib
+*.pbd
+
+*.o
+*.so
+*.a
+
+*.dynlib
+
+*.pdf
