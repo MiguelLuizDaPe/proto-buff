@@ -50,18 +50,26 @@ auto swapBytes(T const& data){
 }
 
 template<int N>
-uint64 bytesToNumber(Bytes<N> bytes){
+uint64 bytesToNumberSlow(Bytes<N> bytes){
 	uint64 num = 0;
-	for(int i = 0; i < N; i++){
-		std::printf("potencia: %ld \n", intPow(2, (((N - 1) - i)*8)));
-		std::printf("byte original: %02x \n", bytes[i]);
+	for(uint64 i = 0; i < N; i++){
+		// std::printf("potencia: %ld \n", intPow(2, (((N - 1) - i)*8)));
+		// std::printf("byte original: %02x \n", bytes[i]);
 		num = num + (uint64)bytes[i] * intPow(2, ((N - (i+1))*8));
-		std::printf("byte mudado: %02lx \n", num);
+		// std::printf("byte mudado: %02lx \n", num);
 	}
 	return num;
 }
 
-
+template<int N>
+uint64 bytesToNumber(Bytes<N> bytes){
+	uint64 num = 0;
+	for(uint64 i = 0; i < N; i++){
+		uint64 p = (N - (i+1)) * 8;
+		num |= uint64(bytes[i]) << p;
+	}
+	return num;
+}
 
 template<typename T> 
 void printBytes(const T& bytes){
@@ -133,10 +141,10 @@ int main(){
 	// auto p = swapBytes(num);
 	// printBytes(p);
 
-	auto str = encodeInt16(9999);
+	auto str = encodeUint64(999999999999999999);
 	printBytes(str);
-	auto num = decodeInt16(str);
-	std::printf("%02x \n", num);
+	auto num = decodeUint64(str);
+	std::printf("%02lx \n", num);
 
 
 
