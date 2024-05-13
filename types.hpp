@@ -2,6 +2,7 @@
 #define _types_hpp_include_
 
 #include <cstdint>
+#include <cstddef>
 
 using int8 = int8_t;
 using uint8 = uint8_t;
@@ -17,5 +18,10 @@ using float64 = double;
 
 static_assert(sizeof(float32) == 4, "FUCK YOU");
 static_assert(sizeof(float64) == 8, "FUCK YOU");
+
+using usize = size_t;
+using isize = ptrdiff_t;
+
+static_assert(sizeof(usize) == sizeof(isize), "FUCK YOU");
 
 #endif /* Include guard */
